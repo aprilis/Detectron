@@ -127,7 +127,7 @@ def add_fpn_retinanet_outputs(model, blobs_in, dim_in, spatial_scales):
         if lvl == k_min:
             retnet_cls_pred = model.Conv(
                 bl_feat,
-                'retnet_cls_pred_fpn{}'.format(lvl),
+                '_retnet_cls_pred_fpn{}'.format(lvl),
                 dim_in,
                 cls_pred_dim * A,
                 3,
@@ -141,14 +141,14 @@ def add_fpn_retinanet_outputs(model, blobs_in, dim_in, spatial_scales):
         else:
             retnet_cls_pred = model.ConvShared(
                 bl_feat,
-                'retnet_cls_pred_fpn{}'.format(lvl),
+                '_retnet_cls_pred_fpn{}'.format(lvl),
                 dim_in,
                 cls_pred_dim * A,
                 3,
                 pad=1,
                 stride=1,
-                weight='retnet_cls_pred_fpn{}_w'.format(k_min),
-                bias='retnet_cls_pred_fpn{}_b'.format(k_min)
+                weight='_retnet_cls_pred_fpn{}_w'.format(k_min),
+                bias='_retnet_cls_pred_fpn{}_b'.format(k_min)
             )
         if not model.train:
             if cfg.RETINANET.SOFTMAX:
@@ -276,7 +276,7 @@ def add_fpn_retinanet_losses(model):
     # ==========================================================================
     for lvl in range(k_min, k_max + 1):
         suffix = 'fpn{}'.format(lvl)
-        cls_lvl_logits = 'retnet_cls_pred_' + suffix
+        cls_lvl_logits = '_retnet_cls_pred_' + suffix
         if not cfg.RETINANET.SOFTMAX:
             cls_focal_loss = model.net.SigmoidFocalLoss(
                 [
