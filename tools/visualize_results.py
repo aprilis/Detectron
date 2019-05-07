@@ -129,7 +129,8 @@ def vis(dataset, detections_pkl, thresh, output_dir, limit=0):
             box_alpha=0.8,
             dataset=ds,
             show_class=True,
-            ext='png'
+            ext='png',
+            out_when_no_box=True
         )
 
 
